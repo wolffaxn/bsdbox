@@ -1,0 +1,4 @@
+# /etc/fstab
+
+# Device          Mountpoint    FStype    Options   Dump  Pass#
+/dev/gpt/swap     none          swap      sw        0     0

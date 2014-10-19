@@ -1,0 +1,10 @@
+# /etc/devfs.rules
+
+# override default jail devfs rules
+[devfsrules_jail=5]
+add include $devfsrules_hide_all
+add include $devfsrules_unhide_basic
+add include $devfsrules_unhide_login
+add path zfs unhide
+add path mem unhide
+add path kmem unhide

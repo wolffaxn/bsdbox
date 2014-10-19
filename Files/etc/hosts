@@ -1,0 +1,4 @@
+# /etc/hosts
+
+::1			    localhost localhost.localnet
+127.0.0.1		localhost localhost.localnet
