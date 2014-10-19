@@ -1,0 +1,5 @@
+# /etc/ssh/sshd_config
+
+# disable remote root logins
+PermitRootLogin no
+PermitEmptyPasswords no
