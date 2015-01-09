@@ -2,7 +2,7 @@
 #
 # ZFS pool install script
 #
-# Copyright (c) 2014 Alexander Wolff <wolffaxn[at]gmail[dot]com>
+# Copyright (c) 2014-2015 Alexander Wolff <wolffaxn[at]gmail[dot]com>
 
 set -e
 # set -x
