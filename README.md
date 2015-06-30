@@ -51,3 +51,5 @@ vagrant package --base <name-of-your-virtual-machine> --output freebsd-10.1-amd6
 ## Credits
 
 ## License
+
+Copyright 2014-2015 Alexander Wolff, Licensed under the MIT License.
