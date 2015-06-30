@@ -32,7 +32,7 @@ cd /tmp
 # download zfsinstall.sh from github
 fetch --no-verify-peer https://raw.githubusercontent.com/wolffaxn/bsdbox/master/bin/zfsinstall.sh
 chmod 750 zfsinstall.sh
-./zfsinstall.sh -d ada4 -p zroot -r 8GB -s 2GB
+./zfsinstall.sh -d ada0 -p zroot -r 8GB -s 2GB
 exit
 ```
 
