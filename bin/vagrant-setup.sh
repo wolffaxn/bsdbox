@@ -30,6 +30,8 @@ echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /usr/local/etc/sudoers
 
 # loader.conf
 fetch --no-verify-peer -o /boot/loader.conf $REPO_URL/boot/loader.conf
+# hosts
+fetch --no-verify-peer -o /etc/make.conf $REPO_URL/etc/hosts
 # make.conf
 fetch --no-verify-peer -o /etc/make.conf $REPO_URL/etc/make.conf
 # motd
