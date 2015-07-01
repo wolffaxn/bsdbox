@@ -46,7 +46,7 @@ fetch --no-verify-peer -o /etc/resolv.conf $REPO_URL/etc/resolv.conf
 # remove the history
 cat /dev/null > /root/.history
 
-# clean iup installed packages
+# clean up installed packages
 pkg clean -a -y
 
 # reduce *.vdi size
