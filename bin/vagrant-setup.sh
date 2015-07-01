@@ -30,12 +30,14 @@ echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /usr/local/etc/sudoers
 
 # loader.conf
 fetch --no-verify-peer -o /boot/loader.conf $REPO_URL/boot/loader.conf
+# sshd_config
+fetch --no-verify-peer -o /etc/ssh/sshd_config $REPO_URL/etc/ssh/sshd_config
 # hosts
-fetch --no-verify-peer -o /etc/make.conf $REPO_URL/etc/hosts
+fetch --no-verify-peer -o /etc/hosts $REPO_URL/etc/hosts
 # make.conf
 fetch --no-verify-peer -o /etc/make.conf $REPO_URL/etc/make.conf
 # motd
-fetch --no-verify-peer -o /etc/make.conf $REPO_URL/etc/motd
+fetch --no-verify-peer -o /etc/motd $REPO_URL/etc/motd
 # rc.conf
 fetch --no-verify-peer -o /etc/rc.conf $REPO_URL/etc/rc.conf
 # resolv.conf
