@@ -69,7 +69,7 @@ fi
 #
 
 # delete a GUID partition table on boot disk (the SSD)
-gpart destroy -F ${DEVICE}
+gpart destroy -F ${DEVICE} 2> /dev/null
 
 # create a GUID partition table on boot disk (the SSD)
 gpart create -s gpt ${DEVICE}
