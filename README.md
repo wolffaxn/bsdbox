@@ -48,6 +48,35 @@ exit
 vagrant package --base <name-of-your-virtual-machine> --output freebsd-10.1-amd64.box
 ```
 
+## Setup
+
+1) Install dependencies
+
+* [Vagrant](https://www.vagrantup.com) 1.7.2 or greater.
+* [VirtualBox](https://www.virtualbox.org) 4.3.20 or greater.
+
+2) Clone this project.
+
+```
+git clone https://github.com/wolffaxn/bsdbox.git
+cd bsdbox
+```
+
+3) Install vagrant plugins
+
+```
+vagrant plugin install vagrant-cachier
+vagrant plugin install vagrant-hostsupdater
+vagrant plugin install vagrant-vbguest
+```
+
+4) Startup and SSH
+
+```
+vagrant up
+vagrant ssh
+```
+
 ## Credits
 
 ## License
