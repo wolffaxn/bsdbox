@@ -10,16 +10,10 @@ BOXNAME = "bsdbox"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # cache downloaded files
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :box
-  end
-
   # FreeBSD
   config.vm.guest = :freebsd
   config.vm.box = "freebsd-10.1-amd64"
   config.vm.box_url = "http://<hostname>/freebsd-10.1-amd64.box"
-
 
   # time in seconds that Vagrant will wait for the machine to boot
   config.vm.boot_timeout = 300
@@ -36,15 +30,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # enable NFS for sharing the host machine into the vagrant VM
   config.vm.synced_folder ".", "/usr/home/vagrant", id: "vagrant-root", :nfs => true, :mount_options => ['nolock,vers=3,udp']
 
-  if Vagrant.has_plugin?("vagrant-vbguest") then
-    config.vbguest.auto_update = false
-  end
-
   config.vm.provider :virtualbox do |vb|
     vb.name = BOXNAME
-
-    # disable vbox gui
-    vb.gui = false
 
     vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
     vb.customize ["modifyvm", :id, "--cpus", "2"]
@@ -54,4 +41,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--nictype2", "virtio"]
   end
 
+  # cache downloaded files
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :machine
+  end
+
+  if Vagrant.has_plugin?('vagrant-hostsupdater')
+    config.hostsupdater.aliases = node['aliases']
+  end
+
+  if Vagrant.has_plugin?('vagrant-vbguest')
+    config.vbguest.auto_update = false
+  end
 end
