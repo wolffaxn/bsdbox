@@ -125,9 +125,6 @@ chmod 1777 /mnt/var/tmp
 
 zpool set bootfs=${POOL}/ROOT/default ${POOL}
 
-mount -t devfs devfs /dev
-zfs set readonly=on zroot/var/empty
-
 # install FreeBSD
 cd /usr/freebsd-dist/
 sh -c 'for file in base.txz kernel.txz; do tar --unlink -xvpJf $file -C /mnt; done'
@@ -184,3 +181,5 @@ zfs_enable="YES"
 # power savings
 powerd_enable="YES"
 EOF
+
+mount -t devfs devfs /dev
