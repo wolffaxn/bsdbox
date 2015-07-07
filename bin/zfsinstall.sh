@@ -69,7 +69,7 @@ fi
 #
 
 # delete a GUID partition table on boot disk (the SSD)
-gpart destroy -F ${DEVICE} 2> /dev/null
+gpart destroy -F ${DEVICE}
 # create a GUID partition table on boot disk (the SSD)
 gpart create -s gpt ${DEVICE}
 
@@ -114,7 +114,7 @@ zfs create -o compression=lz4 -o atime=off -o mountpoint=/usr -o canmount=off ${
 zfs create -o compression=lz4 -o atime=off ${POOL}/usr/home
 zfs create -o compression=lz4 -o atime=off ${POOL}/usr/obj
 zfs create -o compression=lz4 -o atime=off -o setuid=off ${POOL}/usr/ports
-zfs create -o compression=lz4 -o atime=off -o ${POOL}/usr/src
+zfs create -o compression=lz4 -o atime=off ${POOL}/usr/src
 zfs create -o compression=lz4 -o atime=off -o mountpoint=/var -o canmount=off ${POOL}/var
 zfs create -o compression=lz4 -o atime=off -o exec=off -o setuid=off ${POOL}/var/audit
 zfs create -o compression=lz4 -o atime=off -o exec=off -o setuid=off ${POOL}/var/crash
