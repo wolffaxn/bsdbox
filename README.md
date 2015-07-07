@@ -2,6 +2,52 @@
 
 Vagrant box with latest FreeBSD and ZFS.
 
+## Install FreeBSD root on ZFS
+
+1) Run
+
+```sh
+su -
+```
+to get a root shell.
+
+2) Run DHCP client by running
+
+```sh
+dhclient vtnet0
+```
+to get an IPv4 address.
+
+3) We can now start an SSH daemon by running:
+
+```sh
+mkdir /tmp/etc
+mount_unionfs /tmp/etc /etc
+echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+passwd root
+service sshd onestart
+```
+
+4) Login to the FreeBSD Shell by running:
+
+```sh
+ssh root@<ip_address>
+```
+
+5)
+
+```sh
+cd /tmp
+# download zfsinstall.sh from github
+fetch --no-verify-peer https://raw.github.com/wolffaxn/bsdbox/master/bin/zfsinstall.sh
+chmod 750 zfsinstall.sh
+./zfsinstall.sh -d ada0 -p zroot -r 8GB -s 2GB
+```
+
+```sh
+shutdown -h now
+```
+
 ## Virtualbox Settings
 
 Create a new Virtual Machine with the following settings:
@@ -20,27 +66,6 @@ Create a new Virtual Machine with the following settings:
 - Network -> Adapter 2 -> Advanced -> Adapter Type -> Paravirtualized Network (virtio-net)
 - Ports -> Disable Serial Port
 - Ports -> Disable USB Controller
-
-## Install FreeBSD root on ZFS
-
-```sh
-dhclient vtnet0
-```
-
-```sh
-cd /tmp
-# download zfsinstall.sh from github
-fetch --no-verify-peer https://raw.github.com/wolffaxn/bsdbox/master/bin/zfsinstall.sh
-chmod 750 zfsinstall.sh
-./zfsinstall.sh -d ada0 -p zroot -r 8GB -s 2GB
-exit
-```
-
-```sh
-mount -t devfs devfs /dev
-zfs set readonly=on zroot/var/empty
-exit
-```
 
 ## Package for Vagrant
 
