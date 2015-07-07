@@ -127,7 +127,7 @@ zpool set bootfs=${POOL}/ROOT/default ${POOL}
 
 # install FreeBSD
 cd /usr/freebsd-dist/
-sh -c 'for file in base.txz kernel.txz; do tar --unlink -xvpJf $file -C /mnt; done'
+sh -c 'for file in base.txz kernel.txz; do tar --unlink -xpJf $file -C /mnt; done'
 
 cat << EOF > /mnt/boot/loader.conf
 # /boot/loader.conf
