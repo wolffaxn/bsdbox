@@ -76,16 +76,16 @@ gpart create -s gpt ${DEVICE}
 # create necessary partitions on root disk and add ZFS aware boot code
 
 # add the boot partition
-gpart add -l boot0 -t freebsd-boot -a 4k -s ${BOOTSIZE} ${DEVICE}
+gpart add -l boot -t freebsd-boot -a 4k -s ${BOOTSIZE} ${DEVICE}
 # add the swap partition
-gpart add -l swap0 -t freebsd-swap -b 1M -a 4k -s ${SWAPSIZE} ${DEVICE}
+gpart add -l swap -t freebsd-swap -b 1M -a 4k -s ${SWAPSIZE} ${DEVICE}
 # add the ZFS partition
-gpart add -l root0 -t freebsd-zfs -a 4k -s ${ZFSROOTSIZE} ${DEVICE}
+gpart add -l system -t freebsd-zfs -a 4k -s ${ZFSROOTSIZE} ${DEVICE}
 # write boot loader to the disk
 gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ${DEVICE}
 
 # create virtual device which define 4K sector size
-gnop create -S 4096 /dev/gpt/root0
+gnop create -S 4096 /dev/gpt/root
 
 # load ZFS module
 kldload zfs
@@ -97,7 +97,7 @@ if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
 fi
 
 # create ZFS Pool
-zpool create -f -m none -o altroot=/mnt -O canmount=off ${POOL} /dev/gpt/root0.nop
+zpool create -f -m none -o altroot=/mnt -O canmount=off ${POOL} /dev/gpt/system.nop
 
 #
 # Create datasets based off 10.1-RELEASE layout
@@ -148,7 +148,7 @@ cat << EOF > /mnt/etc/fstab
 #/etc/fstab
 
 # Device          Mountpoint    FStype    Options   Dump  Pass#
-/dev/gpt/swap0    none          swap      sw        0     0
+/dev/gpt/swap     none          swap      sw        0     0
 EOF
 
 cat << EOF > /mnt/etc/rc.conf
