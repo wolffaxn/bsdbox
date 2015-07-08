@@ -97,13 +97,13 @@ if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
 fi
 
 # create zpool
-zpool create ${POOL} /dev/gpt/system.nop
+zpool create -f -o altroot=/mnt -o cachefile=/var/tmp/zpool.cache ${POOL} /dev/gpt/system.nop
 # export the zpool
 zpool export ${POOL}
 # detroy the gnops
 gnop destroy /dev/gpt/system.nop
 # re-import the zpool
-zpool import -o altroot=/mnt ${POOL}
+zpool import -o altroot=/mnt -o cachefile=/var/tmp/zpool.cache ${POOL}
 
 #
 # Create datasets based off 10.1-RELEASE layout
