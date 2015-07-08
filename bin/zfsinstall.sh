@@ -154,14 +154,20 @@ EOF
 cat << EOF > /mnt/etc/rc.conf
 # /etc/rc.conf
 
-# clear /tmp
-clear_tmp_enable="YES"
+# power savings
+powerd_enable="NO"
 
-# disable dumpdev
-dumpdev="NO"
+# ZFS support
+zfs_enable="YES"
 
-# enable SSH Daemon
-sshd_enable="YES"
+# hostname
+hostname="bsdbox"
+
+# network configuration
+ifconfig_vtnet0_name="bge0"
+ifconfig_vtnet1_name="bge1"
+ifconfig_bge0="SYNCDHCP"
+ifconfig_bge1="SYNCDHCP"
 
 # disable sendmail
 sendmail_enable="NO"
@@ -169,17 +175,24 @@ sendmail_submit_enable="NO"
 sendmail_outbound_enable="NO"
 sendmail_msp_queue_enable="NO"
 
-# syslog shouldn't listen for incoming connections
-syslogd_flags="-ss"
-
 # disable RPC Binder Daemon
 rpcbind_enable="NO"
 
-# ZFS support
-zfs_enable="YES"
+# syslog shouldn't listen for incoming connections
+syslogd_flags="-ss"
 
-# power savings
-powerd_enable="YES"
+# enable SSH Daemon
+sshd_enable="YES"
+
+# set keymap
+keymap="german.iso.kbd"
+
+# clear /tmp
+clear_tmp_enable="YES"
+
+# disable dumpdev
+dumpdev="NO"
+
 EOF
 
 mount -t devfs devfs /dev
