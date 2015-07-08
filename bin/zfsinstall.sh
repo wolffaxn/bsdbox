@@ -144,10 +144,10 @@ vfs.root.mountfrom="zfs:zroot/ROOT/default"
 
 # file system labels
 geom_label_load="YES"
-# use gpt ids instead of gptids or disks idents
+# use gpt labels instead of gpt uuids or disks idents
 kern.geom.label.disk_ident.enable=0
-kern.geom.label.gpt.enable=1
 kern.geom.label.gptid.enable=0
+kern.geom.label.gpt.enable=1
 EOF
 
 cat << EOF > /mnt/etc/fstab
@@ -198,7 +198,6 @@ clear_tmp_enable="YES"
 
 # disable dumpdev
 dumpdev="NO"
-
 EOF
 
 mount -t devfs devfs /dev
