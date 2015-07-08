@@ -10,8 +10,8 @@ set -e
 REPO_URL="https://raw.github.com/wolffaxn/bsdbox/master"
 
 # setup pkgng
-pkg update -y
-pkg upgrade -y
+pkg update
+pkg upgrade
 
 # convert your /var/db/pkg database to the new pkg format
 pkg2ng

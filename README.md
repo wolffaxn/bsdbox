@@ -45,6 +45,14 @@ chmod 750 zfsinstall.sh
 ```
 
 ```sh
+cd /tmp
+# download vagrant-setup.sh from github
+fetch --no-verify-peer https://raw.github.com/wolffaxn/bsdbox/master/bin/vagrant-setup.sh
+chmod 750 vagrant-setup.sh
+./vagrant-setup.sh
+```
+
+```sh
 shutdown -h now
 ```
 
