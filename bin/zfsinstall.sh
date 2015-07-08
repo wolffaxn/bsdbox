@@ -96,8 +96,14 @@ if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
   gpart add -l cache -t freebsd-zfs -a 4k -s ${L2ARCSIZE} ${DEVICE}
 fi
 
-# create ZFS Pool
-zpool create -f -m none -o altroot=/mnt -O canmount=off ${POOL} /dev/gpt/system.nop
+# create zpool
+zpool create ${POOL} /dev/gpt/system.nop
+# export the zpool
+zpool export ${POOL}
+# detroy the gnops
+gnop destroy /dev/gpt/system.nop
+# re-import the zpool
+zpool import -o altroot=/mnt ${POOL}
 
 #
 # Create datasets based off 10.1-RELEASE layout
@@ -139,9 +145,9 @@ vfs.root.mountfrom="zfs:zroot/ROOT/default"
 # file system labels
 geom_label_load="YES"
 # use gpt ids instead of gptids or disks idents
-kern.geom.label.disk_ident.enable="0"
-kern.geom.label.gpt.enable="1"
-kern.geom.label.gptid.enable="0"
+kern.geom.label.disk_ident.enable=0
+kern.geom.label.gpt.enable=1
+kern.geom.label.gptid.enable=0
 EOF
 
 cat << EOF > /mnt/etc/fstab
