@@ -85,7 +85,7 @@ gpart add -l system -t freebsd-zfs -a 4k -s ${ZFSROOTSIZE} ${DEVICE}
 gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ${DEVICE}
 
 # create virtual device which define 4K sector size
-gnop create -S 4096 /dev/gpt/root
+gnop create -S 4096 /dev/gpt/system
 
 # load ZFS module
 kldload zfs
