@@ -78,7 +78,7 @@ gpart create -s gpt ${DEVICE}
 # add the boot partition
 gpart add -l boot -t freebsd-boot -a 4k -s ${BOOTSIZE} ${DEVICE}
 # add the swap partition
-gpart add -l swap -t freebsd-swap -b 1M -a 4k -s ${SWAPSIZE} ${DEVICE}
+gpart add -l swap -t freebsd-swap -a 4k -s ${SWAPSIZE} ${DEVICE}
 # add the ZFS partition
 gpart add -l system -t freebsd-zfs -a 4k -s ${ZFSROOTSIZE} ${DEVICE}
 # write boot loader to the disk
