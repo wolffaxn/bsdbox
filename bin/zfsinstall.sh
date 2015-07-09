@@ -104,7 +104,7 @@ zpool export ${POOL}
 # detroy the gnops
 #gnop destroy /dev/gpt/system.nop
 # re-import the zpool; look for devices in /dev/gpt to keep labels
-zpool import -d /dev/gpt ${POOL}
+zpool import -d /dev/gpt -o altroot=/mnt ${POOL}
 
 #
 # Create datasets based off 10.1-RELEASE layout
