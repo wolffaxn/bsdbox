@@ -64,9 +64,6 @@ if [ -z "$SWAPSIZE" ]; then
   SWAPSIZE=${DEFAULT_SWAPSIZE}
 fi
 
-# load ZFS module
-kldload zfs
-
 #
 # Disk Partitioning Root
 #
