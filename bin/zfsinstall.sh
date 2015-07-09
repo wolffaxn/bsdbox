@@ -87,21 +87,25 @@ gpart add -l system -t freebsd-zfs -a 4k -s ${ZFSROOTSIZE} ${DEVICE}
 # write boot loader to the disk
 gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ${DEVICE}
 
-# create virtual device which define 4K sector size
-gnop create -S 4096 /dev/gpt/system
-
 # create ZIL and L2ARC partitions
 if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
   gpart add -l log -t freebsd-zfs -a 4k -s ${ZILSIZE} ${DEVICE}
   gpart add -l cache -t freebsd-zfs -a 4k -s ${L2ARCSIZE} ${DEVICE}
 fi
 
+# create virtual device which define 4K sector size
+gnop create -S 4096 /dev/gpt/system
+
+# load ZFS module
+kldload zfs
+
 # create zpool
-zpool create -f -m none -o altroot=/mnt ${POOL} /dev/gpt/system.nop
+zpool create -f -m none -o altroot=/mnt -O canmount=off ${POOL} /dev/gpt/system.nop
+
 # export the zpool
 zpool export ${POOL}
 # detroy the gnops
-gnop destroy /dev/gpt/system.nop
+#gnop destroy /dev/gpt/system.nop
 # re-import the zpool; look for devices in /dev/gpt to keep labels
 zpool import -d /dev/gpt ${POOL}
 
