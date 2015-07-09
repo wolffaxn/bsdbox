@@ -64,6 +64,9 @@ if [ -z "$SWAPSIZE" ]; then
   SWAPSIZE=${DEFAULT_SWAPSIZE}
 fi
 
+# load ZFS module
+kldload zfs
+
 #
 # Disk Partitioning Root
 #
@@ -87,9 +90,6 @@ gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ${DEVICE}
 # create virtual device which define 4K sector size
 gnop create -S 4096 /dev/gpt/system
 
-# load ZFS module
-kldload zfs
-
 # create ZIL and L2ARC partitions
 if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
   gpart add -l log -t freebsd-zfs -a 4k -s ${ZILSIZE} ${DEVICE}
@@ -97,13 +97,13 @@ if [ -n "${ZILSIZE}" -a -n "${L2ARCSIZE}" ]; then
 fi
 
 # create zpool
-zpool create -f -o altroot=/mnt -o cachefile=/var/tmp/zpool.cache ${POOL} /dev/gpt/system.nop
+zpool create -f -m none -o altroot=/mnt ${POOL} /dev/gpt/system.nop
 # export the zpool
 zpool export ${POOL}
 # detroy the gnops
 gnop destroy /dev/gpt/system.nop
-# re-import the zpool
-zpool import -o altroot=/mnt -o cachefile=/var/tmp/zpool.cache ${POOL}
+# re-import the zpool; look for devices in /dev/gpt to keep labels
+zpool import -d /dev/gpt ${POOL}
 
 #
 # Create datasets based off 10.1-RELEASE layout
