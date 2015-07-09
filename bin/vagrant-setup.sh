@@ -21,9 +21,9 @@ pkg install -y sudo
 pkg install -y virtualbox-ose-additions
 
 # create vagrant user
-pw useradd -n vagrant -s /usr/local/bin/bash -m -G wheel -h 0 <<EOC
+pw useradd -n vagrant -s /usr/local/bin/bash -m -G wheel -h 0 <<EOF
 vagrant
-EOC
+EOF
 
 # enable sudo for this user
 echo "%vagrant ALL=(ALL) NOPASSWD: ALL" >> /usr/local/etc/sudoers
