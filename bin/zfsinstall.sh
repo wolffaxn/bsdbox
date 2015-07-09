@@ -99,13 +99,6 @@ kldload zfs
 # create zpool
 zpool create -f -m none -o altroot=/mnt -O canmount=off ${POOL} /dev/gpt/system.nop
 
-# export the zpool
-zpool export ${POOL}
-# detroy the gnops
-#gnop destroy /dev/gpt/system.nop
-# re-import the zpool; look for devices in /dev/gpt to keep labels
-zpool import -d /dev/gpt -o altroot=/mnt ${POOL}
-
 #
 # Create datasets based off 10.1-RELEASE layout
 #
@@ -116,7 +109,6 @@ zfs set dedup=off ${POOL}
 zfs create -o compression=lz4 -o atime=off -o mountpoint=none ${POOL}/ROOT
 zfs create -o compression=lz4 -o atime=off -o mountpoint=/ ${POOL}/ROOT/default
 zfs create -o compression=lz4 -o atime=off -o mountpoint=/tmp -o exec=on -o setuid=off ${POOL}/tmp
-chmod 1777 /mnt/tmp
 zfs create -o compression=lz4 -o atime=off -o mountpoint=/usr -o canmount=off ${POOL}/usr
 zfs create -o compression=lz4 -o atime=off ${POOL}/usr/home
 zfs create -o compression=lz4 -o atime=off ${POOL}/usr/obj
@@ -128,9 +120,18 @@ zfs create -o compression=lz4 -o atime=off -o exec=off -o setuid=off ${POOL}/var
 zfs create -o compression=lz4 -o atime=off -o exec=off -o setuid=off ${POOL}/var/log
 zfs create -o compression=lz4 -o atime=on ${POOL}/var/mail
 zfs create -o compression=lz4 -o atime=off -o setuid=off ${POOL}/var/tmp
+
+chmod 1777 /mnt/tmp
 chmod 1777 /mnt/var/tmp
 
 zpool set bootfs=${POOL}/ROOT/default ${POOL}
+
+# export the zpool
+zpool export ${POOL}
+# detroy the gnops
+gnop destroy /dev/gpt/system.nop
+# re-import the zpool; look for devices in /dev/gpt to keep labels
+zpool import -d /dev/gpt -o altroot=/mnt ${POOL}
 
 # install FreeBSD
 cd /usr/freebsd-dist/
@@ -146,7 +147,7 @@ vfs.root.mountfrom="zfs:zroot/ROOT/default"
 # file system labels
 geom_label_load="YES"
 # use gpt labels instead of gpt uuids or disks idents
-kern.geom.label.disk_ident.enable=0
+#kern.geom.label.disk_ident.enable=0
 kern.geom.label.gptid.enable=0
 kern.geom.label.gpt.enable=1
 EOF
