@@ -69,7 +69,11 @@ fi
 #
 
 # delete a GUID partition table on boot disk (the SSD)
-gpart destroy -F ${DEVICE}
+gpart destroy -F ${DEVICE} > /dev/null 2>&1 || true
+zpool labelclear -f ${DEVICE} > /dev/null 2>&1 || true
+# get rid of any MBR
+dd if=/dev/zero of=/dev/${DEVICE} bs=1m count=1 >&2
+
 # create a GUID partition table on boot disk (the SSD)
 gpart create -s gpt ${DEVICE}
 
