@@ -114,4 +114,4 @@ vagrant ssh
 
 ## License
 
-Copyright 2014-2015 Alexander Wolff, Licensed under the MIT License.
+Copyright 2014-2016 Alexander Wolff, Licensed under the MIT License.
