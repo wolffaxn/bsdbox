@@ -1,5 +1,7 @@
 # bsdbox
 
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/wolffaxn/bsdbox/master/LICENSE)
+
 Vagrant box with latest FreeBSD and ZFS.
 
 ## Install FreeBSD root on ZFS
