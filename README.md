@@ -1,6 +1,9 @@
 # bsdbox
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/wolffaxn/bsdbox/master/LICENSE)
+[[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![GitHub last commit (branch)](https://img.shields.io/github/last-commit/wolffaxn/bsdbox/master.svg)](https://github.com/wolffaxn/bsdbox)
+
+## About 
 
 Vagrant box with latest FreeBSD and ZFS.
 
